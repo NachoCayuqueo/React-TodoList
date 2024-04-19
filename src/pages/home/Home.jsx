@@ -1,15 +1,17 @@
-import { Grid, Input } from "@mui/material";
+import { Grid } from "@mui/material";
 import { TaskFinder, TaskForm, TaskTable, Title } from "../../components";
 import { useState } from "react";
 
 const initializeForm = {
   name: "",
   description: "",
+  state: "No Completada",
 };
 
 const initializeEditedTask = {
   name: "",
   description: "",
+  state: "",
   editeTask: false,
 };
 
@@ -25,7 +27,7 @@ export const Home = () => {
           <Title text="Mi Lista de Tareas" />
         </Grid>
         <Grid item xs={12}>
-          <TaskFinder />
+          <TaskFinder tasks={note} />
         </Grid>
         <Grid item xs={5}>
           <TaskForm
