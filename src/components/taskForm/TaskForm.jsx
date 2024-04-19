@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Box, Button, TextField } from "@mui/material";
+import PropTypes from "prop-types";
 
 export const TaskForm = ({
   form,
@@ -8,16 +9,23 @@ export const TaskForm = ({
   editedTask,
   setEditedTask,
 }) => {
-  const { name, description } = form;
+  const { name, description, state } = form;
 
   useEffect(() => {
     if (editedTask.editeTask) {
       setForm({
         name: editedTask.name,
         description: editedTask.description,
+        state: editedTask.state,
       });
     }
-  }, [editedTask.description, editedTask.editeTask, editedTask.name, setForm]);
+  }, [
+    editedTask.description,
+    editedTask.editeTask,
+    editedTask.name,
+    editedTask.state,
+    setForm,
+  ]);
 
   const handleChangeForm = (e) => {
     const { name, value } = e.target;
@@ -42,15 +50,15 @@ export const TaskForm = ({
           prevNotes.map((task) =>
             task.name === editedTask.name &&
             task.description === editedTask.description
-              ? { ...task, name, description }
+              ? { ...task, name, description, state }
               : task
           )
         );
       } else {
-        setNote((prevNotes) => [...prevNotes, { name, description }]);
+        setNote((prevNotes) => [...prevNotes, { name, description, state }]);
       }
 
-      setForm({ name: "", description: "" });
+      setForm({ name: "", description: "", state: "No Completada" });
       setEditedTask({ name: "", description: "", editeTask: false });
     }
   };
@@ -87,4 +95,12 @@ export const TaskForm = ({
       </Box>
     </form>
   );
+};
+
+TaskForm.propTypes = {
+  form: PropTypes.object,
+  setForm: PropTypes.func,
+  setNote: PropTypes.func,
+  editedTask: PropTypes.object,
+  setEditedTask: PropTypes.func,
 };
